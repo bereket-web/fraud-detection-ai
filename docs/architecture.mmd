@@ -1,0 +1,14 @@
+flowchart LR
+    A[Official BAF Base.csv\nKaggle version 2\nCC BY-NC-SA 4.0] --> B[Validate schema\nexclude label + month from features]
+    B --> C[Chronological split\nmonths 0–5 train\nmonth 6 validation\nmonth 7 test]
+    C --> D[Train-only preprocessing\nmedian imputation\nstandardize numeric\none-hot categoricals]
+    D --> E1[Logistic regression\nclass-weighted]
+    D --> E2[Random forest\nbalanced subsampling]
+    D --> E3[Neural MLP\nbalanced mini-batches]
+    D --> E4[Isolation Forest\nfit legitimate-only]
+    E1 --> F[Validation-only thresholds\nmax F1 + recall target]
+    E2 --> F
+    E3 --> F
+    E4 --> F
+    F --> G[Final test metrics\nPR-AUC / ROC-AUC\nprecision / recall / F1\nfalse positives / false negatives]
+    G --> H[Aggregate reports only\nno raw data or row-level scores]

@@ -1,0 +1,270 @@
+{
+  "project": "Project 11 \u2014 Fraud Detection AI",
+  "dataset": {
+    "name": "Feedzai Bank Account Fraud (BAF), Base variant",
+    "version": 2,
+    "url": "https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022",
+    "paper": "https://proceedings.neurips.cc/paper_files/paper/2022/hash/d9696563856bd350e4e7ac5e5812f23c-Abstract-Datasets_and_Benchmarks.html",
+    "license": "CC BY-NC-SA 4.0",
+    "source_character": "synthetic, privacy-preserving tabular data derived from an anonymized real-world dataset",
+    "sha256": "7bf10a37ce07e72e14c1b09e5efee3d27261baff4facc7da767b0474dcf9b809",
+    "raw_data_redistributed": false
+  },
+  "protocol": {
+    "split": "chronological; latest month held out for test, prior month for validation, earlier months for training",
+    "training_months": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "training_pool_rows_before_sampling": 794989,
+    "validation_month": 6,
+    "test_month": 7,
+    "training_sampled": true,
+    "seed": 2026,
+    "threshold_selection": "maximum validation F1, or best validation precision among thresholds meeting 80% recall; never selected on test",
+    "test_used_for_tuning": false
+  },
+  "partitions": {
+    "train": {
+      "transactions": 250000,
+      "fraud_count": 2473,
+      "fraud_prevalence": 0.009892
+    },
+    "validation": {
+      "transactions": 108168,
+      "fraud_count": 1450,
+      "fraud_prevalence": 0.013405073589231566
+    },
+    "test": {
+      "transactions": 96843,
+      "fraud_count": 1428,
+      "fraud_prevalence": 0.014745515938167962
+    }
+  },
+  "models": {
+    "logistic_regression": {
+      "label": "Logistic regression",
+      "notes": "Standardized numeric + one-hot categorical inputs; class_weight=balanced."
+    },
+    "random_forest": {
+      "label": "Random forest",
+      "notes": "One-hot inputs; class_weight=balanced_subsample; 120 trees."
+    },
+    "neural_mlp": {
+      "label": "Neural MLP",
+      "notes": "Two hidden layers; mini-batches sampled 1:3 fraud:legitimate; threshold calibrated on natural prevalence."
+    },
+    "isolation_forest": {
+      "label": "Isolation Forest",
+      "notes": "IsolationForest fit on known legitimate rows only; training cap=100,000; higher score means more anomalous."
+    }
+  },
+  "validation_thresholds": {
+    "logistic_regression": {
+      "validation_max_f1": 0.8757482155290788,
+      "validation_recall_80": 0.45372437482735906
+    },
+    "random_forest": {
+      "validation_max_f1": 0.3042291415481339,
+      "validation_recall_80": 0.06284160028079668
+    },
+    "neural_mlp": {
+      "validation_max_f1": 0.8042418360710144,
+      "validation_recall_80": 0.23017261922359467
+    },
+    "isolation_forest": {
+      "validation_max_f1": 0.520252230928952,
+      "validation_recall_80": 0.43915437450821876
+    }
+  },
+  "test_metrics": [
+    {
+      "model": "logistic_regression",
+      "model_label": "Logistic regression",
+      "threshold_policy": "validation_max_f1",
+      "threshold_selected_on": "validation_month_only",
+      "threshold": 0.8757482155290788,
+      "precision": 0.24084778420038536,
+      "recall": 0.26260504201680673,
+      "f1": 0.25125628140703515,
+      "specificity": 0.987612010690143,
+      "false_positive_rate": 0.012387989309856962,
+      "average_precision": 0.17828249954433248,
+      "roc_auc": 0.8816037078773237,
+      "true_positives": 375,
+      "false_positives": 1182,
+      "false_negatives": 1053,
+      "true_negatives": 94233,
+      "alerts": 1557,
+      "actual_fraud": 1428,
+      "transactions": 96843,
+      "prevalence": 0.014745515938167962
+    },
+    {
+      "model": "logistic_regression",
+      "model_label": "Logistic regression",
+      "threshold_policy": "validation_recall_80",
+      "threshold_selected_on": "validation_month_only",
+      "threshold": 0.45372437482735906,
+      "precision": 0.06645037250660898,
+      "recall": 0.7745098039215687,
+      "f1": 0.12239929172200088,
+      "specificity": 0.8371534873971598,
+      "false_positive_rate": 0.16284651260284022,
+      "average_precision": 0.17828249954433248,
+      "roc_auc": 0.8816037078773237,
+      "true_positives": 1106,
+      "false_positives": 15538,
+      "false_negatives": 322,
+      "true_negatives": 79877,
+      "alerts": 16644,
+      "actual_fraud": 1428,
+      "transactions": 96843,
+      "prevalence": 0.014745515938167962
+    },
+    {
+      "model": "random_forest",
+      "model_label": "Random forest",
+      "threshold_policy": "validation_max_f1",
+      "threshold_selected_on": "validation_month_only",
+      "threshold": 0.3042291415481339,
+      "precision": 0.2861878453038674,
+      "recall": 0.18137254901960784,
+      "f1": 0.22203171881697384,
+      "specificity": 0.993229576062464,
+      "false_positive_rate": 0.006770423937536019,
+      "average_precision": 0.16814683790407253,
+      "roc_auc": 0.8719347268331427,
+      "true_positives": 259,
+      "false_positives": 646,
+      "false_negatives": 1169,
+      "true_negatives": 94769,
+      "alerts": 905,
+      "actual_fraud": 1428,
+      "transactions": 96843,
+      "prevalence": 0.014745515938167962
+    },
+    {
+      "model": "random_forest",
+      "model_label": "Random forest",
+      "threshold_policy": "validation_recall_80",
+      "threshold_selected_on": "validation_month_only",
+      "threshold": 0.06284160028079668,
+      "precision": 0.052373453318335206,
+      "recall": 0.8151260504201681,
+      "f1": 0.09842303301906735,
+      "specificity": 0.7792695068909501,
+      "false_positive_rate": 0.2207304931090499,
+      "average_precision": 0.16814683790407253,
+      "roc_auc": 0.8719347268331427,
+      "true_positives": 1164,
+      "false_positives": 21061,
+      "false_negatives": 264,
+      "true_negatives": 74354,
+      "alerts": 22225,
+      "actual_fraud": 1428,
+      "transactions": 96843,
+      "prevalence": 0.014745515938167962
+    },
+    {
+      "model": "neural_mlp",
+      "model_label": "Neural MLP",
+      "threshold_policy": "validation_max_f1",
+      "threshold_selected_on": "validation_month_only",
+      "threshold": 0.8042418360710144,
+      "precision": 0.213781877373847,
+      "recall": 0.2759103641456583,
+      "f1": 0.2409049220421889,
+      "specificity": 0.9848137085363936,
+      "false_positive_rate": 0.015186291463606394,
+      "average_precision": 0.17341584391940848,
+      "roc_auc": 0.8824652692917023,
+      "true_positives": 394,
+      "false_positives": 1449,
+      "false_negatives": 1034,
+      "true_negatives": 93966,
+      "alerts": 1843,
+      "actual_fraud": 1428,
+      "transactions": 96843,
+      "prevalence": 0.014745515938167962
+    },
+    {
+      "model": "neural_mlp",
+      "model_label": "Neural MLP",
+      "threshold_policy": "validation_recall_80",
+      "threshold_selected_on": "validation_month_only",
+      "threshold": 0.23017261922359467,
+      "precision": 0.06108826827575159,
+      "recall": 0.8011204481792717,
+      "f1": 0.11352021830811213,
+      "specificity": 0.8157207986165698,
+      "false_positive_rate": 0.18427920138343024,
+      "average_precision": 0.17341584391940848,
+      "roc_auc": 0.8824652692917023,
+      "true_positives": 1144,
+      "false_positives": 17583,
+      "false_negatives": 284,
+      "true_negatives": 77832,
+      "alerts": 18727,
+      "actual_fraud": 1428,
+      "transactions": 96843,
+      "prevalence": 0.014745515938167962
+    },
+    {
+      "model": "isolation_forest",
+      "model_label": "Isolation Forest",
+      "threshold_policy": "validation_max_f1",
+      "threshold_selected_on": "validation_month_only",
+      "threshold": 0.520252230928952,
+      "precision": 0.02369174694090081,
+      "recall": 0.06372549019607843,
+      "f1": 0.03454165875877776,
+      "specificity": 0.9606980034585757,
+      "false_positive_rate": 0.0393019965414243,
+      "average_precision": 0.01956926268849761,
+      "roc_auc": 0.5778477213869355,
+      "true_positives": 91,
+      "false_positives": 3750,
+      "false_negatives": 1337,
+      "true_negatives": 91665,
+      "alerts": 3841,
+      "actual_fraud": 1428,
+      "transactions": 96843,
+      "prevalence": 0.014745515938167962
+    },
+    {
+      "model": "isolation_forest",
+      "model_label": "Isolation Forest",
+      "threshold_policy": "validation_recall_80",
+      "threshold_selected_on": "validation_month_only",
+      "threshold": 0.43915437450821876,
+      "precision": 0.016439367892934,
+      "recall": 0.90406162464986,
+      "f1": 0.03229154941907728,
+      "specificity": 0.19048367657076978,
+      "false_positive_rate": 0.8095163234292302,
+      "average_precision": 0.01956926268849761,
+      "roc_auc": 0.5778477213869355,
+      "true_positives": 1291,
+      "false_positives": 77240,
+      "false_negatives": 137,
+      "true_negatives": 18175,
+      "alerts": 78531,
+      "actual_fraud": 1428,
+      "transactions": 96843,
+      "prevalence": 0.014745515938167962
+    }
+  ],
+  "caveats": [
+    "All benchmark observations are synthetic; these results do not establish real-world fraud performance.",
+    "The test set is one later month from the same synthetic suite, not an independent institution or live system.",
+    "Thresholds are chosen using the validation month; changing costs or alert capacity would change the operating point.",
+    "Precision, recall, F1, and false-alarm counts are descriptive for this split; no confidence interval or production claim is made.",
+    "The neural model's class-balanced mini-batches alter the training prior; threshold selection uses the natural validation prevalence.",
+    "Isolation Forest is fit on training rows labeled legitimate, so it is a one-class baseline with access to known-normal labels."
+  ]
+}

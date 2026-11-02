@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+.ruff_cache/
+.pytest_cache/
+
+# BAF data is CC BY-NC-SA 4.0 and is deliberately not redistributed here.
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Keep fitted objects and row-level predictions local.
+models/*
+reports/predictions.csv
+reports/*.joblib
