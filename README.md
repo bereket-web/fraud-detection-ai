@@ -57,7 +57,7 @@ uv run fraud-lab run
 
 These metrics are synthetic and specific to a single later month in one generated suite. They cannot show how a detector generalizes to an actual bank, country, product, applicant population, or emerging fraud pattern. No confidence intervals, calibration guarantees, human-review capacity, or monetary cost matrix are supplied. A deployment threshold should reflect an explicit review budget and customer-harm trade-off; the reported validation policy is an illustration, not a recommendation.
 
-BAF includes features with demographic or protected-attribute relevance and is intended to support bias evaluation, but this project has not performed a fairness audit. It is not a production service, a financial recommendation, or evidence of real-world fraud reduction. Public GitHub publishing remains pending approved `bereket-web` access; nothing has been published under the connected `bereket74` account. No Hugging Face model, dataset, or Space has been published.
+BAF includes features with demographic or protected-attribute relevance and is intended to support bias evaluation, but this project has not performed a fairness audit. It is not a production service, a financial recommendation, or evidence of real-world fraud reduction. This repository distributes source code, documentation, and aggregate benchmark outputs only: it excludes the source CSV, fitted weights, and row-level predictions. Original code is MIT-licensed; BAF remains under CC BY-NC-SA 4.0, and any reuse of the dataset or materials that qualify as adaptations must follow that license, including its non-commercial and share-alike conditions. See [`DATA_SOURCES.md`](DATA_SOURCES.md). No Hugging Face model, dataset, or Space is published.
 
 ## References
 
